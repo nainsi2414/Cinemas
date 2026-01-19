@@ -1,4 +1,4 @@
-const BASE_URL = "http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/api-docs#/";
+const BASE_URL = "/api/api-docs#/";
 
 export async function registerUser(data) {
   const res = await fetch(`${BASE_URL}/auth/register`, {

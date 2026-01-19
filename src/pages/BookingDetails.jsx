@@ -92,7 +92,7 @@ function BookingDetails() {
     const token = localStorage.getItem("token") || TEMP_TOKEN;
 
     fetch(
-      `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/show-times/${showtimeId}`,
+      `/api/show-times/${showtimeId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

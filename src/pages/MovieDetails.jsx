@@ -147,7 +147,7 @@ function MovieDetails() {
         await Promise.all(
           movieData.theaters.map(async (theater) => {
             const screensRes = await fetch(
-              `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/theaters/${theater.id}/screens`,
+              `/api/theaters/${theater.id}/screens`,
               { headers }
             );
             if (!screensRes.ok) return;
@@ -158,7 +158,7 @@ function MovieDetails() {
             await Promise.all(
               screens.map(async (screen) => {
                 const screenRes = await fetch(
-                  `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/screens/${screen.id}`,
+                  `/api/screens/${screen.id}`,
                   { headers }
                 );
                 if (!screenRes.ok) return;

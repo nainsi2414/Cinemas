@@ -146,7 +146,7 @@ function TheaterDetails() {
       setTheater(theaterData);
 
       const screensRes = await fetch(
-        `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/theaters/${theaterId}/screens`,
+        `/api/theaters/${theaterId}/screens`,
         { headers }
       );
       if (!screensRes.ok) return;
@@ -156,7 +156,7 @@ function TheaterDetails() {
       const screenDetails = await Promise.all(
         screens.map((screen) =>
           fetch(
-            `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/screens/${screen.id}`,
+            `/api/screens/${screen.id}`,
             { headers }
           ).then((r) => (r.ok ? r.json() : null))
         )
