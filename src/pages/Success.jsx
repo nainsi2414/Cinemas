@@ -86,14 +86,17 @@ export default function PaymentSuccess() {
 
         <button
           style={styles.btnPrimary}
-          onClick={() => navigate("/tickets")}
+          onClick={() => navigate("/tickets", {
+            state: { sessionId }
+          })}
         >
           View Ticket
         </button>
 
+
         <button
           style={styles.btnSecondary}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         >
           Back to Homepage
         </button>
