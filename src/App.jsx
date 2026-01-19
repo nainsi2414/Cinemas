@@ -8,6 +8,8 @@ import TheaterDetails from "./pages/TheaterDetails";
 import SeatLayout from "./pages/SeatLayout";
 import BookingDetails from "./pages/BookingDetails";
 import Payment from "./pages/Payment";
+import Success from "./pages/Success";
+import Ticket from "./pages/Ticket";
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <Route path="/seat-layout" element={<SeatLayout />} />
         <Route path="/booking-details" element={<BookingDetails />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/tickets" element={<Ticket />} />
 
       </Routes>
     </BrowserRouter>

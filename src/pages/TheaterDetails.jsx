@@ -308,6 +308,7 @@ function TheaterDetails() {
             state: {
               showtimeId: selectedShowtimeId,
               seatLimit: seatCount,
+              
             },
           });
         }}

@@ -121,7 +121,7 @@ function SeatLayout() {
     const token = localStorage.getItem("token") || TEMP_TOKEN;
 
     fetch(
-      `/api/show-times/${showtimeId}`,
+      `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/show-times/${showtimeId}`,
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -146,7 +146,7 @@ function SeatLayout() {
 
 
   /* ================= SEAT TOGGLE ================= */
-  const toggleSeat = (seatId, price) => {
+  const toggleSeat = (seatId, price, type) => {
     const exists = selectedSeats.find((s) => s.id === seatId);
 
     if (exists) {
@@ -161,15 +161,15 @@ function SeatLayout() {
       return;
     }
 
-    setSelectedSeats((prev) => [...prev, { id: seatId, price }]);
+    setSelectedSeats((prev) => [...prev, { id: seatId, price , layoutType : type}]);
   };
-
+  console.log(selectedSeats)
   const totalAmount = selectedSeats.reduce(
     (sum, s) => sum + s.price,
     0
   );
 
-  const renderRow = (row, cols, price) =>
+  const renderRow = (row, cols, price, type) =>
     Array.from({ length: cols[1] - cols[0] + 1 }).map((_, i) => {
       const seatId = `${row}${cols[0] + i}`;
       const selected = selectedSeats.some((s) => s.id === seatId);
@@ -177,7 +177,7 @@ function SeatLayout() {
       return (
         <button
           key={seatId}
-          onClick={() => toggleSeat(seatId, price)}
+          onClick={() => toggleSeat(seatId, price, type)}
           style={{
             ...styles.seat,
             ...(selected ? styles.selectedSeat : {}),
@@ -215,7 +215,7 @@ function SeatLayout() {
               <div style={styles.rows}>
                 {section.rows.map((row) => (
                   <div key={row} style={styles.row}>
-                    {renderRow(row, section.columns, section.price)}
+                    {renderRow(row, section.columns, section.price, section.type)}
                   </div>
                 ))}
               </div>
