@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import { getMovieById } from "../api/movieApi";
+import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const styles = {
   container: {
@@ -42,7 +43,8 @@ const styles = {
     backgroundColor: "#1e88e5",
     color: "#fff",
     border: "1px solid #1e88e5",
-    transform: "scale(1.05)",
+    boxShadow: "0 6px 14px rgba(30,136,229,0.35)",
+    transform: "scale(1.08)",
   },
   poster: { width: "100%", borderRadius: "16px", marginBottom: "16px" },
   movieTitle: {
@@ -97,7 +99,7 @@ function MovieDetails() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTheater, setSelectedTheater] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  
+
 
   const formatDateUI = (dateStr) => {
     const d = new Date(dateStr);
@@ -230,109 +232,82 @@ function MovieDetails() {
   }
 
   function SeatCountModal({ open, onClose, onSelect }) {
-  const [selected, setSelected] = useState(null);
+    const [selected, setSelected] = useState(null);
 
-  if (!open) return null;
+    if (!open) return null;
 
-  return (
-    <div
-      style={{
+    return (
+      <div style={{
         position: "fixed",
         inset: 0,
         background: "rgba(0,0,0,0.4)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
+        zIndex: 1000
+      }}>
+        <div style={{
           background: "#fff",
           padding: "24px",
           borderRadius: "12px",
           width: "360px",
-          textAlign: "center",
-        }}
-      >
-        <h3 style={{ color: "#1e88e5", fontSize: "16px" }}>How many seats?</h3>
+          textAlign: "center"
+        }}>
+          <h3 style={{ color: "#1e88e5" }}>How many seats?</h3>
 
-        <div
-          style={{
+          <div style={{
             display: "grid",
             gridTemplateColumns: "repeat(5,1fr)",
             gap: "12px",
-            margin: "20px 0",
-          }}
-        >
-          {[...Array(10)].map((_, i) => {
-            const val = i + 1;
-            return (
-              <div
-                key={val}
-                onClick={() => setSelected(val)}
-                style={{
-                  padding: "12px",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                  border: "1px solid #ccc",
-                  background: selected === val ? "#1e88e5" : "#fff",
-                  color: selected === val ? "#fff" : "#000",
-                  fontWeight: 600,
-                }}
-              >
-                {val}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* BUTTONS */}
-        <div style={{ display: "flex", gap: "12px" }}>
-          <button
-            onClick={() => {
-              setSelected(null);
-              onClose();
-            }}
-            style={{
-              flex: 1,
-              padding: "12px",
-              borderRadius: "8px",
-              border: "1px solid #cbd5e1",
-              background: "#f9fafb",
-              color: "#475569",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-          >
-            Cancel
-          </button>
+            margin: "20px 0"
+          }}>
+            {[...Array(10)].map((_, i) => {
+              const val = i + 1;
+              return (
+                <div
+                  key={val}
+                  onClick={() => setSelected(val)}
+                  style={{
+                    padding: "12px",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    border: "1px solid #ccc",
+                    background: selected === val ? "#1e88e5" : "#fff",
+                    color: selected === val ? "#fff" : "#000",
+                    fontWeight: 600
+                  }}
+                >
+                  {val}
+                </div>
+              );
+            })}
+          </div>
 
           <button
             disabled={!selected}
             onClick={() => onSelect(selected)}
             style={{
-              flex: 1,
+              width: "100%",
               padding: "12px",
               borderRadius: "8px",
               border: "none",
               background: selected ? "#1e88e5" : "#ccc",
               color: "#fff",
-              fontWeight: 600,
-              cursor: selected ? "pointer" : "not-allowed",
+              fontWeight: 600
             }}
           >
             Continue
           </button>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
 
   return (
     <div>
+
+
       <MainLayout>
         <div style={styles.container}>
           {/* LEFT */}
@@ -432,17 +407,17 @@ function MovieDetails() {
                 <strong style={{ color: "#1e88e5" }}>
                   {selectedTheater.theaterName}
                 </strong>
-                <p style={{ fontSize: "14px", marginTop: "6px" , fontFamily: "Segoe UI, sans-serif", color:"#4d4d4d"}}>
+                <p style={{ fontSize: "14px", marginTop: "6px" }}>
                   {selectedDate}
                   <br />
                   {formatTimeUI(selectedTime.time)}
                 </p>
-   <button
-  style={styles.bookBtn}
-  onClick={() => setShowSeatModal(true)}
->
-  Book Now
-</button>
+                <button
+                  style={styles.bookBtn}
+                  onClick={() => setShowSeatModal(true)}
+                >
+                  Book Now
+                </button>
 
               </div>
             )}
@@ -450,18 +425,18 @@ function MovieDetails() {
         </div>
       </MainLayout>
       <SeatCountModal
-  open={showSeatModal}
-  onClose={() => setShowSeatModal(false)}
-  onSelect={(seatCount) => {
-    setShowSeatModal(false);
-    navigate("/seat-layout", {
-      state: {
-        showtimeId: selectedTime.showTimeId,
-        seatLimit: seatCount,
-      },
-    });
-  }}
-/>
+        open={showSeatModal}
+        onClose={() => setShowSeatModal(false)}
+        onSelect={(seatCount) => {
+          setShowSeatModal(false);
+          navigate("/seat-layout", {
+            state: {
+              showtimeId: selectedTime.showTimeId,
+              seatLimit: seatCount,
+            },
+          });
+        }}
+      />
 
     </div>
   );

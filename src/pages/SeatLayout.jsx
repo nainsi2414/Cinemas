@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import MainLayout from "../components/MainLayout";
 // import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const TEMP_TOKEN =
@@ -8,49 +9,48 @@ const TEMP_TOKEN =
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(to right, #eaf6fe, #a5d7ff)",
+    background: "linear-gradient(to right, #ffffff, #cfeeff)",
   },
   container: {
-    maxWidth: "500px",
+    maxWidth: "900px",
     margin: "0 auto",
     padding: "40px 20px",
     textAlign: "center",
   },
   back: {
-    fontSize: "25px",
+    fontSize: "20px",
     fontWeight: 600,
     cursor: "pointer",
     color: "#1e88e5",
     marginBottom: "20px",
-    textAlign: "left",
   },
   sectionTitle: {
     fontSize: "13px",
-    color: "#737881",
-    margin: "30px 0 8px",
+    color: "#6b7280",
+    margin: "24px 0 8px",
     textAlign: "left",
   },
   divider: {
-    borderBottom: "1px solid #a6adbe",
+    borderBottom: "1px solid #e5e7eb",
     marginBottom: "16px",
   },
   rows: {
     display: "flex",
     flexDirection: "column",
-    gap: "12px",
+    gap: "10px",
     alignItems: "center",
   },
   row: {
     display: "flex",
-    gap: "10px",
+    gap: "8px",
   },
   seat: {
-    width: "40px",
-    height: "36px",
+    width: "36px",
+    height: "32px",
     borderRadius: "6px",
     border: "1px solid #cbd5e1",
     background: "#fff",
-    fontSize: "13px",
+    fontSize: "12px",
     cursor: "pointer",
   },
   selectedSeat: {
@@ -59,14 +59,14 @@ const styles = {
     borderColor: "#1e88e5",
   },
   screen: {
-    width: "80%",
+    width: "60%",
     height: "10px",
     background: "#bdbdbd",
     borderRadius: "6px",
-    margin: "45px auto 12px",
+    margin: "40px auto 8px",
   },
   screenText: {
-    fontSize: "13px",
+    fontSize: "12px",
     color: "#6b7280",
   },
   payBar: {
@@ -75,7 +75,7 @@ const styles = {
     width: "100%",
     background: "#fff",
     borderTop: "1px solid #e5e7eb",
-    padding: "15px",
+    padding: "16px",
     display: "flex",
     justifyContent: "center",
   },
@@ -83,12 +83,11 @@ const styles = {
     width: "280px",
     height: "48px",
     borderRadius: "10px",
-    border: "2px solid #1e88e5",
+    border: "1.5px solid #1e88e5",
     background: "#fff",
     color: "#1e88e5",
     fontWeight: 600,
     cursor: "pointer",
-    fontSize: "16px",
   },
 };
 
@@ -122,7 +121,7 @@ function SeatLayout() {
     const token = localStorage.getItem("token") || TEMP_TOKEN;
 
     fetch(
-      `http://ec2-13-201-98-117.ap-south-1.compute.amazonaws.com:3000/show-times/${showtimeId}`,
+      `/api/show-times/${showtimeId}`,
       { headers: { Authorization: `Bearer ${token}` } }
     )
       .then(res => res.json())
@@ -162,7 +161,7 @@ function SeatLayout() {
       return;
     }
 
-    setSelectedSeats((prev) => [...prev, { id: seatId, price , layoutType : type}]);
+    setSelectedSeats((prev) => [...prev, { id: seatId, price, layoutType: type }]);
   };
   console.log(selectedSeats)
   const totalAmount = selectedSeats.reduce(
@@ -191,11 +190,19 @@ function SeatLayout() {
 
   return (
     <div>
+      {/* <SeatSelectionModal
+        open={showSeatModal}
+        onClose={() => navigate(-1)}
+        onConfirm={(count) => {
+          setSeatLimit(count);
+          setShowSeatModal(false);
+        }}
+      /> */}
 
       <div style={styles.page}>
         <div style={styles.container}>
           <div style={styles.back} onClick={() => navigate(-1)}>
-            ←  Select Seats ({selectedSeats.length}/{seatLimit})
+            ← Select Seats ({selectedSeats.length}/{seatLimit})
           </div>
 
           {layoutSections.map((section) => (
@@ -221,20 +228,20 @@ function SeatLayout() {
 
         <div style={styles.payBar}>
           <button
-  style={styles.payBtn}
-  disabled={selectedSeats.length !== seatLimit}
-  onClick={() => {
-    navigate("/booking-details", {
-      state: {
-        showtimeId,
-        selectedSeats,
-        totalAmount,
-      },
-    });
-  }}
->
-  Pay ₹{totalAmount}
-</button>
+            style={styles.payBtn}
+            disabled={selectedSeats.length !== seatLimit}
+            onClick={() => {
+              navigate("/booking-details", {
+                state: {
+                  showtimeId,
+                  selectedSeats,
+                  totalAmount,
+                },
+              });
+            }}
+          >
+            Pay ₹{totalAmount}
+          </button>
 
         </div>
       </div>
