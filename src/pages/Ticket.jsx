@@ -96,7 +96,7 @@ function Ticket() {
     const token = localStorage.getItem("token") || TEMP_TOKEN;
 
     axios
-      .get(`${BASE_URL}/orders`, {
+      .get(`/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -119,6 +119,8 @@ function Ticket() {
   // ================= FILTER ORDERS =================
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+    console.log(orders)
 
   const filteredOrders = orders.filter((order) => {
     const showDate = new Date(order.showtime.startTime);

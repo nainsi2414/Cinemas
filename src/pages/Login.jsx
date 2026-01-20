@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout";
 import authStyles from "../styles/authStyles";
-
-const BASE_URL =
-  "/api";
+import { loginUser } from "../api/authApi";
 
 function Login() {
   const navigate = useNavigate();
@@ -26,27 +24,25 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
+      const data = await loginUser(form);
+      console.log(data)
 
-      const data = await res.json();
+      // 🔐 Check for token in response (handle potential variations)
+      const token = data.data.accessToken || data.token;
 
-      if (!res.ok) {
-        throw new Error(data.message || "Login failed");
+      if (!token) {
+        throw new Error("No access token received from server");
       }
 
       // 🔐 Store token
-      localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("token", token);
+      console.log("Login successful, token stored:", token);
 
       // 🚀 Redirect after login
       navigate("/home");
     } catch (err) {
-      setError(err.message);
+      console.error("Login Error:", err);
+      setError(err.response?.data?.message || err.message || "Login failed");
     } finally {
       setLoading(false);
     }

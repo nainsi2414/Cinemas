@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../components/AuthLayout";
 import authStyles from "../styles/authStyles";
-
-const BASE_URL =
-  "/api";
+import { registerUser } from "../api/authApi";
 
 function Register() {
   const navigate = useNavigate();
@@ -28,19 +26,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Signup failed");
-      }
+      const data = await registerUser(form);
 
       // 🔐 Store JWT token
       localStorage.setItem("accessToken", data.accessToken);
@@ -48,7 +34,7 @@ function Register() {
       // 🚀 Redirect after successful signup
       navigate("/home");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Signup failed");
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import MainLayout from "../components/MainLayout";
 // import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const TEMP_TOKEN =

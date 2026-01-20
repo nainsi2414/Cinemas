@@ -1,35 +1,11 @@
-const BASE_URL = "/api/api-docs#/";
+import axiosInstance from "./axiosInstance";
 
 export async function registerUser(data) {
-  const res = await fetch(`${BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || "Registration failed");
-  }
-
-  return res.json();
+  const res = await axiosInstance.post("/auth/signup", data);
+  return res.data;
 }
 
 export async function loginUser(data) {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.message || "Login failed");
-  }
-
-  return res.json();
+  const res = await axiosInstance.post("/auth/login", data);
+  return res.data;
 }
