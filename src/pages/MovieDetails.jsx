@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import { getMovieById } from "../api/movieApi";
-import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const styles = {
   container: {
@@ -43,8 +42,7 @@ const styles = {
     backgroundColor: "#1e88e5",
     color: "#fff",
     border: "1px solid #1e88e5",
-    boxShadow: "0 6px 14px rgba(30,136,229,0.35)",
-    transform: "scale(1.08)",
+    transform: "scale(1.05)",
   },
   poster: { width: "100%", borderRadius: "16px", marginBottom: "16px" },
   movieTitle: {
@@ -237,30 +235,36 @@ function MovieDetails() {
   if (!open) return null;
 
   return (
-    <div style={{
-      position: "fixed",
-      inset: 0,
-      background: "rgba(0,0,0,0.4)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000
-    }}>
-      <div style={{
-        background: "#fff",
-        padding: "24px",
-        borderRadius: "12px",
-        width: "360px",
-        textAlign: "center"
-      }}>
-        <h3 style={{ color: "#1e88e5" }}>How many seats?</h3>
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.4)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
+          background: "#fff",
+          padding: "24px",
+          borderRadius: "12px",
+          width: "360px",
+          textAlign: "center",
+        }}
+      >
+        <h3 style={{ color: "#1e88e5", fontSize: "16px" }}>How many seats?</h3>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5,1fr)",
-          gap: "12px",
-          margin: "20px 0"
-        }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5,1fr)",
+            gap: "12px",
+            margin: "20px 0",
+          }}
+        >
           {[...Array(10)].map((_, i) => {
             const val = i + 1;
             return (
@@ -274,7 +278,7 @@ function MovieDetails() {
                   border: "1px solid #ccc",
                   background: selected === val ? "#1e88e5" : "#fff",
                   color: selected === val ? "#fff" : "#000",
-                  fontWeight: 600
+                  fontWeight: 600,
                 }}
               >
                 {val}
@@ -283,21 +287,44 @@ function MovieDetails() {
           })}
         </div>
 
-        <button
-          disabled={!selected}
-          onClick={() => onSelect(selected)}
-          style={{
-            width: "100%",
-            padding: "12px",
-            borderRadius: "8px",
-            border: "none",
-            background: selected ? "#1e88e5" : "#ccc",
-            color: "#fff",
-            fontWeight: 600
-          }}
-        >
-          Continue
-        </button>
+        {/* BUTTONS */}
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button
+            onClick={() => {
+              setSelected(null);
+              onClose();
+            }}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "8px",
+              border: "1px solid #cbd5e1",
+              background: "#f9fafb",
+              color: "#475569",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+
+          <button
+            disabled={!selected}
+            onClick={() => onSelect(selected)}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "8px",
+              border: "none",
+              background: selected ? "#1e88e5" : "#ccc",
+              color: "#fff",
+              fontWeight: 600,
+              cursor: selected ? "pointer" : "not-allowed",
+            }}
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -306,21 +333,6 @@ function MovieDetails() {
 
   return (
     <div>
-    
-      <SeatSelectionModal
-        open={showSeatModal}
-        onClose={() => setShowSeatModal(false)}
-        onConfirm={(seatCount) => {
-          setShowSeatModal(false);
-          navigate("/seat-layout", {
-            state: {
-              showtimeId: selectedTime.showTimeId,
-              seatLimit: seatCount,
-            },
-          });
-        }}
-      />
-
       <MainLayout>
         <div style={styles.container}>
           {/* LEFT */}
@@ -420,7 +432,7 @@ function MovieDetails() {
                 <strong style={{ color: "#1e88e5" }}>
                   {selectedTheater.theaterName}
                 </strong>
-                <p style={{ fontSize: "14px", marginTop: "6px" }}>
+                <p style={{ fontSize: "14px", marginTop: "6px" , fontFamily: "Segoe UI, sans-serif", color:"#4d4d4d"}}>
                   {selectedDate}
                   <br />
                   {formatTimeUI(selectedTime.time)}

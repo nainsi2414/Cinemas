@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import MainLayout from "../components/MainLayout";
 import { getTheaterById } from "../api/theaterApi";
 import { getMovieById } from "../api/movieApi";
-import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const styles = {
   container: {
@@ -224,97 +223,108 @@ function TheaterDetails() {
 
 
   function SeatCountModal({ open, onClose, onSelect }) {
-    const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(null);
 
-    if (!open) return null;
+  if (!open) return null;
 
-    return (
-      <div style={{
+  return (
+    <div
+      style={{
         position: "fixed",
         inset: 0,
         background: "rgba(0,0,0,0.4)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        zIndex: 1000
-      }}>
-        <div style={{
+        zIndex: 1000,
+      }}
+    >
+      <div
+        style={{
           background: "#fff",
           padding: "24px",
           borderRadius: "12px",
           width: "360px",
-          textAlign: "center"
-        }}>
-          <h3 style={{ color: "#1e88e5" }}>How many seats?</h3>
+          textAlign: "center",
+        }}
+      >
+        <h3 style={{ color: "#1e88e5" }}>How many seats?</h3>
 
-          <div style={{
+        <div
+          style={{
             display: "grid",
             gridTemplateColumns: "repeat(5,1fr)",
             gap: "12px",
-            margin: "20px 0"
-          }}>
-            {[...Array(10)].map((_, i) => {
-              const val = i + 1;
-              return (
-                <div
-                  key={val}
-                  onClick={() => setSelected(val)}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                    border: "1px solid #ccc",
-                    background: selected === val ? "#1e88e5" : "#fff",
-                    color: selected === val ? "#fff" : "#000",
-                    fontWeight: 600
-                  }}
-                >
-                  {val}
-                </div>
-              );
-            })}
-          </div>
+            margin: "20px 0",
+          }}
+        >
+          {[...Array(10)].map((_, i) => {
+            const val = i + 1;
+            return (
+              <div
+                key={val}
+                onClick={() => setSelected(val)}
+                style={{
+                  padding: "12px",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  border: "1px solid #ccc",
+                  background: selected === val ? "#1e88e5" : "#fff",
+                  color: selected === val ? "#fff" : "#000",
+                  fontWeight: 600,
+                }}
+              >
+                {val}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* BUTTONS */}
+        <div style={{ display: "flex", gap: "12px" }}>
+          <button
+            onClick={() => {
+              setSelected(null);
+              onClose();
+            }}
+            style={{
+              flex: 1,
+              padding: "12px",
+              borderRadius: "8px",
+              border: "1px solid #cbd5e1",
+              background: "#f9fafb",
+              color: "#475569",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
 
           <button
             disabled={!selected}
             onClick={() => onSelect(selected)}
             style={{
-              width: "100%",
+              flex: 1,
               padding: "12px",
               borderRadius: "8px",
               border: "none",
               background: selected ? "#1e88e5" : "#ccc",
               color: "#fff",
-              fontWeight: 600
+              fontWeight: 600,
+              cursor: selected ? "pointer" : "not-allowed",
             }}
           >
             Continue
           </button>
         </div>
       </div>
-    );
-  }
-
+    </div>
+  );
+}
 
   return (
     <>
-
-      <SeatSelectionModal
-        open={showSeatModal}
-        onClose={() => setShowSeatModal(false)}
-        onConfirm={(seatCount) => {
-          setShowSeatModal(false);
-          navigate("/seat-layout", {
-            state: {
-              showtimeId: selectedShowtimeId,
-              seatLimit: seatCount,
-              
-            },
-          });
-        }}
-      />
-
-
       <MainLayout>
         <div style={styles.container}>
           <div style={styles.back} onClick={() => navigate(-1)}>

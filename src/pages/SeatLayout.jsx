@@ -9,48 +9,49 @@ const TEMP_TOKEN =
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(to right, #ffffff, #cfeeff)",
+    background: "linear-gradient(to right, #eaf6fe, #a5d7ff)",
   },
   container: {
-    maxWidth: "900px",
+    maxWidth: "500px",
     margin: "0 auto",
     padding: "40px 20px",
     textAlign: "center",
   },
   back: {
-    fontSize: "20px",
+    fontSize: "25px",
     fontWeight: 600,
     cursor: "pointer",
     color: "#1e88e5",
     marginBottom: "20px",
+    textAlign: "left",
   },
   sectionTitle: {
     fontSize: "13px",
-    color: "#6b7280",
-    margin: "24px 0 8px",
+    color: "#737881",
+    margin: "30px 0 8px",
     textAlign: "left",
   },
   divider: {
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #a6adbe",
     marginBottom: "16px",
   },
   rows: {
     display: "flex",
     flexDirection: "column",
-    gap: "10px",
+    gap: "12px",
     alignItems: "center",
   },
   row: {
     display: "flex",
-    gap: "8px",
+    gap: "10px",
   },
   seat: {
-    width: "36px",
-    height: "32px",
+    width: "40px",
+    height: "36px",
     borderRadius: "6px",
     border: "1px solid #cbd5e1",
     background: "#fff",
-    fontSize: "12px",
+    fontSize: "13px",
     cursor: "pointer",
   },
   selectedSeat: {
@@ -59,14 +60,14 @@ const styles = {
     borderColor: "#1e88e5",
   },
   screen: {
-    width: "60%",
+    width: "80%",
     height: "10px",
     background: "#bdbdbd",
     borderRadius: "6px",
-    margin: "40px auto 8px",
+    margin: "45px auto 12px",
   },
   screenText: {
-    fontSize: "12px",
+    fontSize: "13px",
     color: "#6b7280",
   },
   payBar: {
@@ -75,7 +76,7 @@ const styles = {
     width: "100%",
     background: "#fff",
     borderTop: "1px solid #e5e7eb",
-    padding: "16px",
+    padding: "15px",
     display: "flex",
     justifyContent: "center",
   },
@@ -83,11 +84,12 @@ const styles = {
     width: "280px",
     height: "48px",
     borderRadius: "10px",
-    border: "1.5px solid #1e88e5",
+    border: "2px solid #1e88e5",
     background: "#fff",
     color: "#1e88e5",
     fontWeight: 600,
     cursor: "pointer",
+    fontSize: "16px",
   },
 };
 
@@ -190,19 +192,11 @@ function SeatLayout() {
 
   return (
     <div>
-      {/* <SeatSelectionModal
-        open={showSeatModal}
-        onClose={() => navigate(-1)}
-        onConfirm={(count) => {
-          setSeatLimit(count);
-          setShowSeatModal(false);
-        }}
-      /> */}
 
       <div style={styles.page}>
         <div style={styles.container}>
           <div style={styles.back} onClick={() => navigate(-1)}>
-            ← Select Seats ({selectedSeats.length}/{seatLimit})
+            ←  Select Seats ({selectedSeats.length}/{seatLimit})
           </div>
 
           {layoutSections.map((section) => (

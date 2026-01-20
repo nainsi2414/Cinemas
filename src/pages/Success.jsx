@@ -70,9 +70,6 @@ export default function PaymentSuccess() {
       navigate("/");
     }
 
-    // OPTIONAL:
-    // Call backend to verify payment using sessionId
-    // fetch(`/api/verify-payment?session_id=${sessionId}`)
   }, [sessionId, navigate]);
 
   return (
@@ -86,7 +83,7 @@ export default function PaymentSuccess() {
 
         <button
           style={styles.btnPrimary}
-          onClick={() => navigate("/tickets", {
+          onClick={() => navigate(`/tickets`, {
             state: { sessionId }
           })}
         >

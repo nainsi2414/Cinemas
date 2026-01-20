@@ -8,10 +8,11 @@ const TEMP_TOKEN =
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(to right, #ffffff, #cfeeff)",
+    background: "linear-gradient(to right, #eaf6fe, #bae0ff)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: "Segoe UI, sans-serif",
   },
   card: {
     width: "360px",
@@ -43,13 +44,13 @@ const styles = {
     fontSize: "14px",
   },
   divider: {
-    borderBottom: "1px solid #e5e7eb",
-    margin: "14px 0",
+    borderBottom: "1px solid #d6d7db",
+    margin: "15px 0",
   },
   payBtn: {
     width: "100%",
     height: "44px",
-    marginTop: "18px",
+    marginTop: "25px",
     borderRadius: "10px",
     border: "1.5px solid #1e88e5",
     background: "#fff",
@@ -60,7 +61,7 @@ const styles = {
   cancelBtn: {
     width: "100%",
     height: "44px",
-    marginTop: "10px",
+    marginTop: "15px",
     borderRadius: "10px",
     border: "1px solid #cbd5e1",
     background: "#f9fafb",
