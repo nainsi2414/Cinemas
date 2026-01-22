@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import MainLayout from "../components/MainLayout";
 // import SeatSelectionModal from "../components/SeatSelectionModal";
 
-const TEMP_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
+// const TEMP_TOKEN =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
 
 const styles = {
   page: {
@@ -12,26 +12,26 @@ const styles = {
     background: "linear-gradient(to right, #ffffff, #cfeeff)",
   },
   container: {
-    maxWidth: "900px",
+    maxWidth: "500px",
     margin: "0 auto",
     padding: "40px 20px",
     textAlign: "center",
   },
   back: {
-    fontSize: "20px",
+    fontSize: "22px",
     fontWeight: 600,
     cursor: "pointer",
     color: "#1e88e5",
-    marginBottom: "20px",
+    marginBottom: "25px",
   },
   sectionTitle: {
-    fontSize: "13px",
+    fontSize: "14px",
     color: "#6b7280",
-    margin: "24px 0 8px",
+    margin: "26px 0 8px",
     textAlign: "left",
   },
   divider: {
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #cccdd1",
     marginBottom: "16px",
   },
   rows: {
@@ -45,12 +45,12 @@ const styles = {
     gap: "8px",
   },
   seat: {
-    width: "36px",
-    height: "32px",
+    width: "40px",
+    height: "36px",
     borderRadius: "6px",
     border: "1px solid #cbd5e1",
     background: "#fff",
-    fontSize: "12px",
+    fontSize: "13px",
     cursor: "pointer",
   },
   selectedSeat: {
@@ -59,14 +59,14 @@ const styles = {
     borderColor: "#1e88e5",
   },
   screen: {
-    width: "60%",
+    width: "80%",
     height: "10px",
     background: "#bdbdbd",
     borderRadius: "6px",
-    margin: "40px auto 8px",
+    margin: "50px auto 8px",
   },
   screenText: {
-    fontSize: "12px",
+    fontSize: "13px",
     color: "#6b7280",
   },
   payBar: {
@@ -80,13 +80,14 @@ const styles = {
     justifyContent: "center",
   },
   payBtn: {
+    fontSize: "16px",
     width: "280px",
     height: "48px",
     borderRadius: "10px",
-    border: "1.5px solid #1e88e5",
+    border: "2px solid #1e88e5",
     background: "#fff",
     color: "#1e88e5",
-    fontWeight: 600,
+    fontWeight: 750,
     cursor: "pointer",
   },
 };
@@ -118,7 +119,7 @@ function SeatLayout() {
   useEffect(() => {
     if (!showtimeId) return;
 
-    const token = localStorage.getItem("token") || TEMP_TOKEN;
+    const token = localStorage.getItem("token");
 
     fetch(
       `/api/show-times/${showtimeId}`,

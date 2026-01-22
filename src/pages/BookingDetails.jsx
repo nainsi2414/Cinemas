@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainLayout from "../components/MainLayout";
 
-const TEMP_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
+// const TEMP_TOKEN =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
 
 const styles = {
   page: {
+        fontFamily: "Segoe UI, sans-serif",
     minHeight: "100vh",
     background: "linear-gradient(to right, #ffffff, #cfeeff)",
     display: "flex",
@@ -81,7 +82,7 @@ function BookingDetails() {
   useEffect(() => {
     if (!showtimeId) return;
 
-    const token = localStorage.getItem("token") || TEMP_TOKEN;
+    const token = localStorage.getItem("token") ;
 
     fetch(`/api/show-times/${showtimeId}`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -111,7 +112,7 @@ function BookingDetails() {
     try {
       setLoading(true);
 
-      const token = localStorage.getItem("token") || TEMP_TOKEN;
+      const token = localStorage.getItem("token");
 
       console.log(selectedSeats);
 

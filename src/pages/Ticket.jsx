@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MainLayout from "../components/MainLayout";
 import jsPDF from "jspdf";
 
 const styles = {
@@ -90,10 +89,10 @@ function Ticket() {
 
   // ================= FETCH ORDERS =================
   useEffect(() => {
-    const TEMP_TOKEN =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZGlhdGlydGg0QGdtYWlsLmNvbSIsImlkIjoiMmM4ZTBlNWUtMmUyYi00Zjc5LWFjMTktY2UxODY0MmNjZWExIiwiaWF0IjoxNzY4ODA2MTk0LCJleHAiOjE3Njk0MTA5OTR9.wAO5kCnuKrxHW6khuBndCCxfvPDwMFvtow4_BzTmoJA";
+    // const TEMP_TOKEN =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImluZGlhdGlydGg0QGdtYWlsLmNvbSIsImlkIjoiMmM4ZTBlNWUtMmUyYi00Zjc5LWFjMTktY2UxODY0MmNjZWExIiwiaWF0IjoxNzY4ODA2MTk0LCJleHAiOjE3Njk0MTA5OTR9.wAO5kCnuKrxHW6khuBndCCxfvPDwMFvtow4_BzTmoJA";
 
-    const token = localStorage.getItem("token") || TEMP_TOKEN;
+    const token = localStorage.getItem("token") ;
 
     axios
       .get(`/api/orders`, {
@@ -171,7 +170,6 @@ function Ticket() {
 
   // ================= RENDER =================
   return (
-    <MainLayout>
       <div style={styles.page}>
         {/* Tabs */}
         <div style={styles.tabs}>
@@ -239,7 +237,6 @@ function Ticket() {
           ))}
         </div>
       </div>
-    </MainLayout>
   );
 }
 

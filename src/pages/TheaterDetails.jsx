@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import MainLayout from "../components/MainLayout";
 import { getTheaterById } from "../api/theaterApi";
 import { getMovieById } from "../api/movieApi";
 
@@ -134,11 +133,11 @@ function TheaterDetails() {
   };
 
   useEffect(() => {
-    const TEMP_TOKEN =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
+    // const TEMP_TOKEN =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
 
     const load = async () => {
-      const token = localStorage.getItem("token") || TEMP_TOKEN;
+      const token = localStorage.getItem("token");
       const headers = { Authorization: `Bearer ${token}` };
 
       const theaterData = await getTheaterById(theaterId);
@@ -213,11 +212,9 @@ function TheaterDetails() {
 
   if (!theater) {
     return (
-      <MainLayout>
         <div style={{ padding: "80px", textAlign: "center" }}>
           Loading Theater...
         </div>
-      </MainLayout>
     );
   }
 
@@ -325,7 +322,6 @@ function TheaterDetails() {
 
   return (
     <>
-      <MainLayout>
         <div style={styles.container}>
           <div style={styles.back} onClick={() => navigate(-1)}>
             ← {theater.name}
@@ -412,7 +408,7 @@ function TheaterDetails() {
               </div>
             ))}
         </div>
-      </MainLayout>
+
       <SeatCountModal
         open={showSeatModal}
         onClose={() => setShowSeatModal(false)}

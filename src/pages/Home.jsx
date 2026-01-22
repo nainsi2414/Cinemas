@@ -3,7 +3,6 @@ import { getAllMovies } from "../api/movieApi";
 import { getAllTheaters } from "../api/theaterApi";
 import { useNavigate } from "react-router-dom";
 
-import MainLayout from "../components/MainLayout";
 import mainStyles from "../styles/mainStyles";
 import MovieCard from "../components/MovieCard";
 import MovieDetails from "../pages/MovieDetails";
@@ -35,7 +34,6 @@ function Home() {
 
 
   return (
-    <MainLayout>
       <div style={mainStyles.pageContainer}>
         <div style={mainStyles.card}>
             <h2 style={mainStyles.title}>Now Showing</h2>
@@ -110,7 +108,6 @@ function Home() {
         </div>    
     </div>
  
-    </MainLayout>
   );
 }
 

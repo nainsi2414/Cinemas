@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import MainLayout from "../components/MainLayout";
 import { getMovieById } from "../api/movieApi";
-import SeatSelectionModal from "../components/SeatSelectionModal";
+// import SeatSelectionModal from "../components/SeatSelectionModal";
 
 const styles = {
   container: {
@@ -129,12 +128,10 @@ function MovieDetails() {
   };
 
   useEffect(() => {
-    const TEMP_TOKEN =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hcEBleGFtcGxlLmNvbSIsImlkIjoiMzEzODEwNDktYjBiZC00ZThkLWE4MDMtZTZjNGJlNWMxZGQxIiwiaWF0IjoxNzY4Mjk3Mjg3LCJleHAiOjE3Njg5MDIwODd9.GCuyIyEq0_1mf8S6lpWro_CKVn1gf3bbPanpF7bFRck";
-
+  
     const loadMovieDetails = async () => {
       try {
-        const token = localStorage.getItem("token") || TEMP_TOKEN;
+        const token = localStorage.getItem("token") ;
         const headers = { Authorization: `Bearer ${token}` };
 
         const movieData = await getMovieById(movieId);
@@ -223,11 +220,11 @@ function MovieDetails() {
 
   if (!movie) {
     return (
-      <MainLayout>
+     
         <div style={{ padding: "80px", textAlign: "center" }}>
           <h2>Loading Movie...</h2>
         </div>
-      </MainLayout>
+     
     );
   }
 
@@ -283,21 +280,43 @@ function MovieDetails() {
             })}
           </div>
 
-          <button
-            disabled={!selected}
-            onClick={() => onSelect(selected)}
-            style={{
-              width: "100%",
-              padding: "12px",
-              borderRadius: "8px",
-              border: "none",
-              background: selected ? "#1e88e5" : "#ccc",
-              color: "#fff",
-              fontWeight: 600
-            }}
-          >
-            Continue
-          </button>
+          <div style={{ display: "flex", gap: "12px" }}>
+            <button
+              onClick={() => {
+                setSelected(null);
+                onClose();
+              }}
+              style={{
+                flex: 1,
+                padding: "12px",
+                borderRadius: "8px",
+                border: "1px solid #cbd5e1",
+                background: "#f9fafb",
+                color: "#475569",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              Cancel
+            </button>
+
+            <button
+              disabled={!selected}
+              onClick={() => onSelect(selected)}
+              style={{
+                flex: 1,
+                padding: "12px",
+                borderRadius: "8px",
+                border: "none",
+                background: selected ? "#1e88e5" : "#ccc",
+                color: "#fff",
+                fontWeight: 600,
+                cursor: selected ? "pointer" : "not-allowed",
+              }}
+            >
+              Continue
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -308,7 +327,6 @@ function MovieDetails() {
     <div>
 
 
-      <MainLayout>
         <div style={styles.container}>
           {/* LEFT */}
           <div style={styles.left}>
@@ -423,7 +441,7 @@ function MovieDetails() {
             )}
           </div>
         </div>
-      </MainLayout>
+    
       <SeatCountModal
         open={showSeatModal}
         onClose={() => setShowSeatModal(false)}
